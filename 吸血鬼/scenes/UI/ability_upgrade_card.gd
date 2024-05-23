@@ -10,6 +10,7 @@ func _ready():
 	gui_input.connect(on_gui_input)
 
 func set_ability_upgrade(upgrade: AbilityUpgrade):
+	printt("随机升级的能力:", upgrade == null)
 	name_lable.text = upgrade.name
 	description_lable.text = upgrade.decription
 

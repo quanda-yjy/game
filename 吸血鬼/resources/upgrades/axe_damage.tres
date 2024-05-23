@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://b5u65b1n7bndj"]
+
+[ext_resource type="Script" path="res://resources/upgrades/ablility_upgrade.gd" id="1_uqr3i"]
+
+[resource]
+script = ExtResource("1_uqr3i")
+id = "axe_damage"
+max_quantity = 0
+name = "斧头伤害提升"
+decription = "增加10%斧头的伤害"

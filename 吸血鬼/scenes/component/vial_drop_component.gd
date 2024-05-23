@@ -6,8 +6,7 @@ extends Node
 
 
 func  _ready():
-	print("##############")
-	print((health_component as HealthComponent).died.connect(on_died))
+	(health_component as HealthComponent).died.connect(on_died)
 	
 
 func on_died():

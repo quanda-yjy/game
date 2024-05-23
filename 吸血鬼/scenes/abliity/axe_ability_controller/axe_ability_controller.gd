@@ -4,10 +4,12 @@ extends Node
 
 @onready var timer = $Timer
 
-var damage = 10
+var base_damage = 10
+var additional_damage_percent = 1
 
 func _ready():
 	timer.timeout.connect(on_timer_timeout)
+	GameEvent.ability_upgrade_add.connect(on_ability_upgrade_add)
 	
 
 func on_timer_timeout():
@@ -22,4 +24,8 @@ func on_timer_timeout():
 	var axe_abiliity_instance = axe_ability_scene.instantiate()
 	foreground.add_child(axe_abiliity_instance)
 	axe_abiliity_instance.global_position = player.global_position
-	axe_abiliity_instance.hitbox_component.damage = damage
+	axe_abiliity_instance.hitbox_component.damage = base_damage
+
+func on_ability_upgrade_add(upgrade: AbilityUpgrade, current_upgrades: Dictionary):
+	if upgrade.id == "axe_damage":
+		additional_damage_percent = 1 + (current_upgrades["axe_damage"]["quantity"] * 0.1)

@@ -19,7 +19,7 @@ func _ready():
 	$CollisionArea2D.body_entered.connect(on_body_entered)
 	$CollisionArea2D.body_exited.connect(on_body_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timer_timeout)
-	health_component.helath_changed.connect(on_health_changed)
+	health_component.health_changed.connect(on_health_changed)
 	GameEvent.ability_upgrade_add.connect(on_ability_upgrade_add)
 	update_health_display()
 
@@ -87,7 +87,7 @@ func on_ability_upgrade_add(ability_upgrade: AbilityUpgrade, current_upgrades: D
 	if not ability_upgrade is Ability:
 		return
 	var ability = ability_upgrade as Ability
-	print(ability_upgrade)
+	printt("角色升级能力", ability_upgrade.name)
 	abilities.add_child(ability.ability_controller_scene.instantiate())
 
 	

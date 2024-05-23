@@ -8,5 +8,5 @@ script = ExtResource("1_r8vc6")
 ability_controller_scene = ExtResource("1_xskot")
 id = "axe"
 max_quantity = 1
-name = "Axe"
-decription = "获取一把围绕自身旋转的斧头"
+name = "斧头"
+decription = "一把围绕自身旋转的斧头"

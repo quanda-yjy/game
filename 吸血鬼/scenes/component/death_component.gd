@@ -13,7 +13,6 @@ func _ready():
 	
 	
 func on_died():
-	print("-------------")
 	if owner == null || not owner is Node2D:
 		return 
 	var spawn_position = owner.global_position
