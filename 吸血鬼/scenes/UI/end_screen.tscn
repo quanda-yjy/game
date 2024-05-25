@@ -1,6 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3rr0eh06vrxp"]
+[gd_scene load_steps=9 format=3 uid="uid://c3rr0eh06vrxp"]
 
 [ext_resource type="Script" path="res://scenes/UI/end_screen.gd" id="1_qvyvx"]
+[ext_resource type="AudioStream" uid="uid://dioy8rdc1b3if" path="res://asserts/audio/jingles_vectory.ogg" id="2_n0s2a"]
+[ext_resource type="PackedScene" uid="uid://coqr5bvv5d52n" path="res://scenes/UI/sound_button.tscn" id="2_vems0"]
+[ext_resource type="AudioStream" uid="uid://cm5x7a7inqxvc" path="res://asserts/audio/jingles_defeat.ogg" id="3_ixcfg"]
+
+[sub_resource type="Animation" id="Animation_5sw6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_urly2"]
 resource_name = "in"
@@ -17,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_5sw6f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_dfl4c"]
@@ -61,6 +64,16 @@ _data = {
 [node name="EndScreen" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_qvyvx")
+
+[node name="VecotyStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_n0s2a")
+volume_db = -5.0
+bus = &"sfx"
+
+[node name="DefeatStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ixcfg")
+volume_db = -5.0
+bus = &"sfx"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -92,6 +105,7 @@ size_flags_vertical = 4
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -99,17 +113,14 @@ theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 16
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_colors/font_shadow_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_colors/font_outline_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 8
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_font_sizes/font_size = 32
 text = "Victory"
 horizontal_alignment = 1
@@ -118,30 +129,24 @@ vertical_alignment = 1
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_colors/font_outline_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 8
+theme_type_variation = &"BlueOutlineLabel"
 text = "You Win !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="RestarButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="RestartButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vems0")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.247059, 0.14902, 0.192157, 1)
 text = "Restar
 "
 
-[node name="QuitButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="QuitButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_vems0")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit
-
-
-"
+text = "Quit"
