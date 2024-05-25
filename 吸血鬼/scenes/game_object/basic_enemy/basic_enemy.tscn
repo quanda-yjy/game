@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjeqnkshpv0ep"]
+[gd_scene load_steps=22 format=3 uid="uid://cjeqnkshpv0ep"]
 
 [ext_resource type="Script" path="res://scenes/game_object/basic_enemy/basic_enemy.gd" id="1_sgouf"]
 [ext_resource type="Texture2D" uid="uid://bt3ltqn3i4hp0" path="res://asserts/game_object/basic_enemy/mouse_gary.png" id="2_ty4dp"]
@@ -8,6 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://b428h23fxjsjv" path="res://scenes/component/death_component.tscn" id="4_ojgks"]
 [ext_resource type="PackedScene" uid="uid://b2jilhcdk5g5s" path="res://scenes/component/velocity_component.tscn" id="4_p80ie"]
 [ext_resource type="PackedScene" uid="uid://dgoqeo7fg7234" path="res://scenes/component/hit_flash_component.tscn" id="8_pmp76"]
+[ext_resource type="AudioStream" uid="uid://dxp5wc3go6fgv" path="res://asserts/audio/footstep_carpet_000.ogg" id="9_s6u2a"]
+[ext_resource type="PackedScene" uid="uid://s00n7b7niic8" path="res://scenes/component/random_stream_player_2d_component.tscn" id="10_l0jsa"]
+[ext_resource type="AudioStream" uid="uid://bhb58qeotlhct" path="res://asserts/audio/footstep_carpet_001.ogg" id="11_pti01"]
+[ext_resource type="AudioStream" uid="uid://7b8luc6q4fln" path="res://asserts/audio/footstep_carpet_002.ogg" id="12_2ylbl"]
+[ext_resource type="AudioStream" uid="uid://bf6oydqpw1cms" path="res://asserts/audio/footstep_carpet_003.ogg" id="13_pgykf"]
+[ext_resource type="AudioStream" uid="uid://dxq21fn83vkjb" path="res://asserts/audio/footstep_carpet_004.ogg" id="14_06s2a"]
 
 [sub_resource type="Animation" id="Animation_g7tj0"]
 length = 0.001
@@ -71,7 +77,7 @@ _data = {
 "walk": SubResource("Animation_6d468")
 }
 
-[sub_resource type="Shader" id="Shader_rk52s"]
+[sub_resource type="Shader" id="Shader_ucdie"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -97,7 +103,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b616v"]
 resource_local_to_scene = true
-shader = SubResource("Shader_rk52s")
+shader = SubResource("Shader_ucdie")
 shader_parameter/lerp_percent = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pa2dh"]
@@ -156,5 +162,10 @@ offset = Vector2(0, -8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_2cd78")
+
+[node name="HitRandomAudioPlayer2DComponent" parent="." instance=ExtResource("10_l0jsa")]
+max_distance = 300.0
+attenuation = 0.5
+streams = Array[AudioStream]([ExtResource("9_s6u2a"), ExtResource("11_pti01"), ExtResource("12_2ylbl"), ExtResource("13_pgykf"), ExtResource("14_06s2a")])
 
 [connection signal="died" from="HealthComponent" to="DeathComponent" method="_on_health_component_died"]

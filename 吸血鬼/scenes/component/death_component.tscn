@@ -1,7 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b428h23fxjsjv"]
+[gd_scene load_steps=15 format=3 uid="uid://b428h23fxjsjv"]
 
 [ext_resource type="Texture2D" uid="uid://bt3ltqn3i4hp0" path="res://asserts/game_object/basic_enemy/mouse_gary.png" id="1_1mtfn"]
 [ext_resource type="Script" path="res://scenes/component/death_component.gd" id="1_pv14j"]
+[ext_resource type="PackedScene" uid="uid://s00n7b7niic8" path="res://scenes/component/random_stream_player_2d_component.tscn" id="3_4aga7"]
+[ext_resource type="AudioStream" uid="uid://dxp5wc3go6fgv" path="res://asserts/audio/footstep_carpet_000.ogg" id="4_gypf4"]
+[ext_resource type="AudioStream" uid="uid://bhb58qeotlhct" path="res://asserts/audio/footstep_carpet_001.ogg" id="5_6gtah"]
+[ext_resource type="AudioStream" uid="uid://7b8luc6q4fln" path="res://asserts/audio/footstep_carpet_002.ogg" id="6_brv4g"]
+[ext_resource type="AudioStream" uid="uid://bf6oydqpw1cms" path="res://asserts/audio/footstep_carpet_003.ogg" id="7_ownm2"]
+[ext_resource type="AudioStream" uid="uid://dxq21fn83vkjb" path="res://asserts/audio/footstep_carpet_004.ogg" id="8_ihts7"]
 
 [sub_resource type="Animation" id="Animation_84u1i"]
 length = 0.001
@@ -90,3 +96,8 @@ texture = ExtResource("1_1mtfn")
 lifetime = 0.65
 fixed_fps = 0
 interpolate = false
+
+[node name="HitRandomAudioPlayer2DComponent" parent="." instance=ExtResource("3_4aga7")]
+max_distance = 300.0
+attenuation = 0.5
+streams = Array[AudioStream]([ExtResource("4_gypf4"), ExtResource("5_6gtah"), ExtResource("6_brv4g"), ExtResource("7_ownm2"), ExtResource("8_ihts7")])

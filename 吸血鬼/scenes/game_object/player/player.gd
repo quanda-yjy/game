@@ -1,19 +1,20 @@
 extends CharacterBody2D
 
 
-const MAX_SPEED  = 150
-const  ACCELERATION_SMOOTHIN = 25
-
 @onready var damage_interval_timer = $DamageIntervalTimer
 @onready var health_component = $HealthComponent
 @onready var health_bar = $HealthBar
 @onready var abilities = $Abilities
 @onready var animation_player = $AnimationPlayer
 @onready var visuals = $Visuals
+@onready var velocity_component = $VelocityComponent
+@onready var random_stream_player_2d_component = $RandomStreamPlayer2DComponent
+
 
 
 
 var number_colliding_bodies = 0
+var base_speed = 0
 
 func _ready():
 	$CollisionArea2D.body_entered.connect(on_body_entered)
@@ -25,15 +26,13 @@ func _ready():
 
 
 func _process(delta):
+	base_speed = velocity_component.max_speed
 	var move_ment_vector = get_movement_vevtor()
 	# 返回单位长度的向量， 给斜向移动适配
 	var direction = move_ment_vector.normalized()
 	
-	var tartget_velocity = direction * MAX_SPEED
-	
-	velocity = velocity.lerp(tartget_velocity, 1 - exp(-delta * ACCELERATION_SMOOTHIN))
-	
-	move_and_slide()
+	velocity_component.accelerate_in_direction(direction)
+	velocity_component.move(self)
 	
 	if move_ment_vector.x != 0 || move_ment_vector.y != 0:
 		animation_player.play("walk")
@@ -80,15 +79,18 @@ func on_damage_interval_timer_timeout():
 
 
 func on_health_changed():
+	GameEvent.emit_player_damaged()
 	update_health_display()
+	random_stream_player_2d_component.play_random()
 
 
 func on_ability_upgrade_add(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary):
-	if not ability_upgrade is Ability:
-		return
-	var ability = ability_upgrade as Ability
-	printt("角色升级能力", ability_upgrade.name)
-	abilities.add_child(ability.ability_controller_scene.instantiate())
+	if ability_upgrade is Ability:
+		var ability = ability_upgrade as Ability
+		printt("角色升级能力", ability_upgrade.name)
+		abilities.add_child(ability.ability_controller_scene.instantiate())
+	elif ability_upgrade.id == "player_speed":
+		velocity_component.max_speed = base_speed + (base_speed * current_upgrades["player_speed"]["quantity"] * 0.1)
 
 	
 

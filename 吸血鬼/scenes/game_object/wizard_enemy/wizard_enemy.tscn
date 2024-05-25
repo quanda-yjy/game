@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ctwyxe5xv46a2"]
+[gd_scene load_steps=22 format=3 uid="uid://ctwyxe5xv46a2"]
 
 [ext_resource type="Script" path="res://scenes/game_object/wizard_enemy/wizard_enemy.gd" id="1_ebl1a"]
 [ext_resource type="PackedScene" uid="uid://tkptanvg28it" path="res://scenes/component/health_component.tscn" id="1_yqv1h"]
@@ -8,6 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://d318sgfeltvpx" path="res://scenes/component/hurtbox_component.tscn" id="4_s6jef"]
 [ext_resource type="PackedScene" uid="uid://l7x5r227k12c" path="res://scenes/component/vial_drop_component.tscn" id="4_yoai3"]
 [ext_resource type="PackedScene" uid="uid://dgoqeo7fg7234" path="res://scenes/component/hit_flash_component.tscn" id="5_yhwm4"]
+[ext_resource type="PackedScene" uid="uid://s00n7b7niic8" path="res://scenes/component/random_stream_player_2d_component.tscn" id="9_yeoku"]
+[ext_resource type="AudioStream" uid="uid://dxp5wc3go6fgv" path="res://asserts/audio/footstep_carpet_000.ogg" id="10_ia3it"]
+[ext_resource type="AudioStream" uid="uid://bhb58qeotlhct" path="res://asserts/audio/footstep_carpet_001.ogg" id="11_6oegq"]
+[ext_resource type="AudioStream" uid="uid://7b8luc6q4fln" path="res://asserts/audio/footstep_carpet_002.ogg" id="12_eyq84"]
+[ext_resource type="AudioStream" uid="uid://bf6oydqpw1cms" path="res://asserts/audio/footstep_carpet_003.ogg" id="13_5ugn6"]
+[ext_resource type="AudioStream" uid="uid://dxq21fn83vkjb" path="res://asserts/audio/footstep_carpet_004.ogg" id="14_5l2tj"]
 
 [sub_resource type="Animation" id="Animation_j2k57"]
 length = 0.001
@@ -113,7 +119,7 @@ _data = {
 "walk": SubResource("Animation_0r0m8")
 }
 
-[sub_resource type="Shader" id="Shader_46rhe"]
+[sub_resource type="Shader" id="Shader_iaxpw"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -132,7 +138,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q5luc"]
 resource_local_to_scene = true
-shader = SubResource("Shader_46rhe")
+shader = SubResource("Shader_iaxpw")
 shader_parameter/lerp_percent = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_heli1"]
@@ -191,3 +197,8 @@ texture = ExtResource("3_an4a8")
 visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_1khqi")
+
+[node name="HitRandomAudioPlayer2DComponent" parent="." instance=ExtResource("9_yeoku")]
+max_distance = 300.0
+attenuation = 0.5
+streams = Array[AudioStream]([ExtResource("10_ia3it"), ExtResource("11_6oegq"), ExtResource("12_eyq84"), ExtResource("13_5ugn6"), ExtResource("14_5l2tj")])
